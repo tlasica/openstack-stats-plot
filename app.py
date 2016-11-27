@@ -13,8 +13,14 @@ def hello():
 
 @app.route("/plot/ram")
 def plot_ram():
-    ram_by_user = sorted(client.ram_per_user(session), key=operator.itemgetter(1))
-    return render_template('piechart.html', entries=ram_by_user, title="RAM usage by userId")
+    data = sorted(client.ram_per_user(session), key=operator.itemgetter(1))
+    return render_template('piechart.html', entries=data, title="RAM usage by userId")
+
+
+@app.route("/plot/cpu")
+def plot_cpu():
+    data = sorted(client.cpu_per_user(session), key=operator.itemgetter(1))
+    return render_template('piechart.html', entries=data, title="VCPUs usage by userId")
 
 
 @app.route("/api/ram")
