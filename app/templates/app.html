@@ -7,41 +7,13 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.2/nv.d3.min.css">
   </head>
   <body>
+    <h2>DSE-TE Tenants Usage</h2>
     <div>
-      <script>
-        data_ram_per_userid=[{"values": [{"value": 16384, "label": "johnny.soedomo"}, {"value": 16384, "label": "tony.bui"}, {"value": 24576, "label": "shane.runquist"}, {"value": 28672, "label": "james.trevino"}, {"value": 30720, "label": "htran"}, {"value": 32768, "label": "james.falcon"}, {"value": 40960, "label": "aspitzer"}, {"value": 49152, "label": "shreyas.balakrishna"}, {"value": 57344, "label": "christine.ellis"}, {"value": 65536, "label": "eduard.tudenhoefner"}, {"value": 65536, "label": "giovanny.castro"}, {"value": 65536, "label": "shaunak.das"}, {"value": 90112, "label": "christopher.lambert"}, {"value": 98304, "label": "tomasz.lasica"}, {"value": 131072, "label": "xian.teng"}, {"value": 155648, "label": "rocco.varela"}, {"value": 391168, "label": "pierre.laporte"}], "key": "Serie 1"}];
-
-        nv.addGraph(function() {
-            var chart = nv.models.pieChart();
-            chart.margin({top: 30, right: 60, bottom: 20, left: 60});
-            var datum = data_ram_per_userid[0].values;
-
-            chart.color(d3.scale.category20c().range());
-            chart.showLabels(true);
-            chart.donut(false);
-            chart.showLegend(true);
-
-            chart
-                .x(function(d) { return d.label })
-                .y(function(d) { return d.value });
-
-            chart.width(450);
-
-            chart.height(450);
-
-
-                d3.select('#ram_per_userid svg')
-                .datum(datum)
-                .transition().duration(500)
-                .attr('width', 450)
-                .attr('height', 450)
-                .call(chart);
-
-
-            });
-
-            </script>
-</div>
-          </body>
+      <a href="/plot/ram">RAM usage by userID</a>
+    </div>
+    <div>
+      <a href="/plot/cpu">VCPUs usage by userID</a>
+    </div>
+  </body>
 
 </html>

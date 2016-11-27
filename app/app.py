@@ -1,15 +1,19 @@
-from flask import Flask, render_template, jsonify, abort
+from flask import Flask, render_template, jsonify
 import client
 import operator
 
 app = Flask(__name__)
-session = None
+
+
+print "loading configuration..."
+config = client.read_config('./config.yaml')
+print "initialize openstack session..."
+session = client.initialize_session(config['keystone_url'], config['user'], config['password'], config['tenant'])
 
 
 @app.route("/")
-def hello():
-    return render_template('piechart.html')
-
+def index():
+    return render_template('app.html')
 
 @app.route("/plot/ram")
 def plot_ram():
@@ -36,8 +40,4 @@ def api_cpu():
 
 
 if __name__ == "__main__":
-    print "loading configuration..."
-    config = client.read_config('./config.yaml')
-    print "initialize openstack session..."
-    session = client.initialize_session(config['keystone_url'], config['user'], config['password'], config['tenant'])
     app.run()
