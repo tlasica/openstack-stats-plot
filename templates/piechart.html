@@ -4,12 +4,31 @@
     <meta charset="utf-8">
     <title>Step 1 - A Basic Pie Chart</title>
     <style>
-      .legend {                                                   /* NEW */
-        font-size: 18px;                                          /* NEW */
-      }                                                           /* NEW */
-      rect {                                                      /* NEW */
-        stroke-width: 2;                                          /* NEW */
-      }                                                           /* NEW */
+       #chart {
+        height: 600px;
+        position: relative;
+        width: 1000px;
+      }
+      .tooltip {
+        background: #eee;
+        box-shadow: 0 0 5px #999999;
+        color: #333;
+        display: none;
+        font-size: 14px;
+        left: 80px;
+        padding: 10px;
+        position: absolute;
+        text-align: center;
+        top: 80px;
+        width: 120px;
+        z-index: 10;
+      }
+      .legend {
+        font-size: 18px;
+      }
+      rect {
+        stroke-width: 2;
+      }
     </style>
   </head>
   <body>
@@ -17,6 +36,19 @@
     <div id="chart"></div>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
+        var tooltip = d3.select('#chart')            // NEW
+          .append('div')                             // NEW
+          .attr('class', 'tooltip');                 // NEW
+
+        tooltip.append('div')                        // NEW
+          .attr('class', 'label');                   // NEW
+
+        tooltip.append('div')                        // NEW
+          .attr('class', 'count');                   // NEW
+
+        tooltip.append('div')                        // NEW
+          .attr('class', 'percent');                 // NEW
+
       (function(d3) {
         'use strict';
 
@@ -83,6 +115,24 @@
           .attr('x', legendRectSize + legendSpacing)              // NEW
           .attr('y', legendRectSize - legendSpacing)              // NEW
           .text(function(d) { return d; });                       // NEW
+
+        //
+        // Add tooltip
+        //
+        path.on('mouseover', function(d) {
+          var total = d3.sum(dataset.map(function(d) {
+            return d.count;
+          }));
+          var percent = Math.round(1000 * d.data.count / total) / 10;
+          tooltip.select('.label').html(d.data.label);
+          tooltip.select('.count').html(d.data.count);
+          tooltip.select('.percent').html(percent + '%');
+          tooltip.style('display', 'block');
+        });
+
+        path.on('mouseout', function() {
+            tooltip.style('display', 'none');
+        });
 
       })(window.d3);
     </script>
