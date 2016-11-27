@@ -1,0 +1,4 @@
+keystone_url: http://keystone.datastax.lan:5000
+tenant: DSE-Test
+user: tomasz.lasica
+password: tlP@ssw0rd
