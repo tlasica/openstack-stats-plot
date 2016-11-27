@@ -1,4 +1,5 @@
 flask
 apache-libcloud
+ruamel.yaml
+backports.ssl-match-hostname
 
-pip install python-nvd3
