@@ -5,9 +5,9 @@ import operator
 app = Flask(__name__)
 
 
-print "loading configuration..."
+print("loading configuration...")
 config = client.read_config('./config.yaml')
-print "initialize openstack session..."
+print("initialize openstack session...")
 session = client.initialize_session(config['keystone_url'], config['user'], config['password'], config['tenant'])
 
 
